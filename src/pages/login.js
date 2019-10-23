@@ -11,12 +11,12 @@ export default function Login({ navigation }) {
     useEffect(() => {
         AsyncStorage.getItem('rm').then(rm => {
             if(rm) {
-                navigation.navigate('List');
+                navigation.navigate('Login');
             }
             })
     }, []);
 
-    async function handleSubmit() {
+    async function handleSubmit(rm) {
         const response = await api.post('/rm', {
             rm
         })
@@ -25,7 +25,7 @@ export default function Login({ navigation }) {
 
         await AsyncStorage.setItem('rm', _id);
 
-        navigation.navigate('List');
+        navigation.navigate('List', { rm });
     }
 
     return (
@@ -41,7 +41,7 @@ export default function Login({ navigation }) {
             value={rm}
             onChangeText={setRm}
             />
-            <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+            <TouchableOpacity onPress={() => handleSubmit(rm)} style={styles.button}>
                 <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
         </View>

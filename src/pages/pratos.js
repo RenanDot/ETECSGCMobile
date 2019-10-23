@@ -1,56 +1,64 @@
 import React, { useState, useEffect }from 'react';
 import { SafeAreaView, TouchableOpacity, Text, AsyncStorage, Image, StyleSheet } from 'react-native';
 
-import CardapioList from '../components/CardapioList';
-
 import api from '../services/api';
 
 import logo from '../Assets/logo.png';
 export default function Login({ navigation }) {
 
-    const dia = navigation.getParam('dia')
+    const dia = navigation.getParam('dia');
+    const rm = navigation.getParam('rm');
 
-    async function handleSubmit() {
+    async function handleSubmit(rm) {
         const response = await api.post('/soma', {
             soma: 1,
             dia: dia,
+            rm: rm,
         })
 
-        navigation.navigate('List');
+        navigation.navigate('List', { rm });
     }
 
-    async function handleSubmit2() {
+    async function handleSubmit2(rm) {
         const response = await api.post('/soma', {
             soma: 2,
             dia: dia,
+            rm: rm,
         })
 
-        navigation.navigate('List');
+        navigation.navigate('List', { rm });
     }
 
-    async function handleSubmit3() {
+    async function handleSubmit3(rm) {
         const response = await api.post('/soma', {
             soma: 3,
             dia: dia,
+            rm: rm,
         })
 
-        navigation.navigate('List');
+        navigation.navigate('List',{ rm });
+    }
+    
+    async function handleReturn(rm) {
+        navigation.navigate('List', { rm });
     }
 
     return(
+        console.log(rm),
+        console.log(dia),
     <SafeAreaView style={styles.container}>
         <Image style={styles.logo} source={logo} />
         <Text style={styles.text}>Quantos pratos deseja comer?</Text>
-        <TouchableOpacity onPress={handleSubmit} value={soma=1} style={styles.button}>
+        <TouchableOpacity onPress={() => handleSubmit(rm)} value={soma=1} style={styles.button}>
                 <Text style={styles.buttonText}>1 Prato</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleSubmit2} style={styles.button}>
+        <TouchableOpacity onPress={() => handleSubmit2(rm)} style={styles.button}>
             <Text style={styles.buttonText}>2 Pratos</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleSubmit3} style={styles.button}>
+        <TouchableOpacity onPress={() => handleSubmit3(rm)} style={styles.button}>
             <Text style={styles.buttonText}>3 Pratos</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={styles.buttonw}>
+        <TouchableOpacity onPress={() => handleReturn(rm)} style={styles.buttonw}>
             <Text style={styles.buttonText}>Cancelar</Text>
         </TouchableOpacity>
     </SafeAreaView>

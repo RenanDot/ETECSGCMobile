@@ -6,7 +6,7 @@ import logo from '../Assets/logo.png';
 
 
 export default function Confirm({ navigation }) {
-    const id = navigation.getParam('id');
+    const rm = navigation.getParam('rm');
     const thumb = navigation.getParam('thumb');
     const dia = navigation.getParam('dia');
     const desc = navigation.getParam('desc');
@@ -16,9 +16,9 @@ export default function Confirm({ navigation }) {
         navigation.navigate('List');
     }
 
-    async function handleSubmiter(dia) {
+    async function handleSubmiter(dia, rm) {
 
-        navigation.navigate('Pratos', {dia});
+        navigation.navigate('Pratos', { dia, rm });
     }
 
     return (
@@ -28,7 +28,7 @@ export default function Confirm({ navigation }) {
             <Image style={styles.thumbnail} source={{ uri: thumb }} />
             <Text style={styles.desc}>{ing}</Text>
             <Text style={styles.negr}>Ingredientes: <Text style={styles.ing}>{desc}</Text></Text>
-            <TouchableOpacity onPress={() => handleSubmiter(dia)} style={styles.button}>
+            <TouchableOpacity onPress={() => handleSubmiter(dia, rm)} style={styles.button}>
                 <Text style={styles.buttonText}>Vou Comer</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleSubmit} style={styles.buttonw}>

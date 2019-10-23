@@ -6,11 +6,12 @@ import api from '../services/api';
 
 function CardapioList({ navigation }) {
     const [cardapio, setCardapio] = useState();
+    const rm = navigation.getParam('rm');
 
     useEffect(() => {
         async function loadCardapio() {
             const response = await api.get('/cardapios', {
-                params: { user_id: "5dad082bc618f93a142b637f" }
+                params: { user_id: "5dae7f16dc2e0727c8940922" }
             })
 
             setCardapio(response.data)
@@ -19,8 +20,8 @@ function CardapioList({ navigation }) {
         loadCardapio();
     }, []);
 
-    function handleNavigate(id, dia, ing , desc, thumb) {
-        navigation.navigate('Confirm', { id, dia, desc, ing, thumb });
+    function handleNavigate(id, dia, ing , desc, thumb, rm) {
+        navigation.navigate('Confirm', { id, dia, desc, ing, thumb, rm });
     }
 
     return (
@@ -34,7 +35,7 @@ function CardapioList({ navigation }) {
                     <View style={styles.listItem}> 
                         <Image style={styles.thumbnail} source={{ uri: item.thumbnail_url }} />
                         <Text style={styles.dia}>{item.dia}</Text>
-                        <TouchableOpacity onPress={() => handleNavigate(item._id, item.dia, item.descricao, item.ingredientes, item.thumbnail_url)} style={styles.button}>
+                        <TouchableOpacity onPress={() => handleNavigate(item._id, item.dia, item.descricao, item.ingredientes, item.thumbnail_url, rm)} style={styles.button}>
                             <Text style={styles.buttonText}>Ver Cardapio do Dia</Text>
                         </TouchableOpacity>
                     </View>
